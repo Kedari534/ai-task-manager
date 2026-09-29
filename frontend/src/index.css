@@ -1,0 +1,645 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ===========================
+   CSS Variables & Design Tokens
+   =========================== */
+:root {
+  --bg-base: #07070a;
+  --bg-surface: #0f0f14;
+  --bg-card: #13131a;
+  --bg-card-hover: #1a1a24;
+  --border: rgba(255,255,255,0.07);
+  --border-glow: rgba(0,242,255,0.3);
+
+  --cyan: #00f2ff;
+  --purple: #7000ff;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --blue: #3b82f6;
+
+  --text-primary: #f0f0f5;
+  --text-secondary: #8a8a9a;
+  --text-muted: #55556a;
+
+  --glow-cyan: 0 0 20px rgba(0,242,255,0.25);
+  --glow-purple: 0 0 20px rgba(112,0,255,0.25);
+  --glow-green: 0 0 16px rgba(34,197,94,0.2);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ===========================
+   Reset & Base
+   =========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===========================
+   Scrollbar
+   =========================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb { background: #2a2a3a; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a4e; }
+
+/* ===========================
+   Gradient Text
+   =========================== */
+.gradient-text {
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(90deg, #f59e0b, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===========================
+   Glassmorphism Cards
+   =========================== */
+.glass-morphism {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg) !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.glass-morphism:hover {
+  border-color: rgba(0,242,255,0.18) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), var(--glow-cyan);
+  transform: translateY(-1px);
+}
+
+.glass-morphism .ant-card-head {
+  background: transparent !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.glass-morphism .ant-card-body {
+  padding: 20px !important;
+}
+
+/* ===========================
+   Animated Orb Background
+   =========================== */
+.orb-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+  animation: floatOrb linear infinite;
+}
+
+.orb-1 {
+  width: 600px; height: 600px;
+  background: var(--purple);
+  top: -200px; left: -200px;
+  animation-duration: 20s;
+}
+
+.orb-2 {
+  width: 500px; height: 500px;
+  background: var(--cyan);
+  bottom: -200px; right: -100px;
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+
+.orb-3 {
+  width: 300px; height: 300px;
+  background: #ec4899;
+  top: 50%; left: 50%;
+  animation-duration: 18s;
+}
+
+@keyframes floatOrb {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  33%  { transform: translate(40px, -30px) rotate(120deg); }
+  66%  { transform: translate(-20px, 20px) rotate(240deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* ===========================
+   Neon Glow Utilities
+   =========================== */
+.neon-cyan { box-shadow: var(--glow-cyan); }
+.neon-purple { box-shadow: var(--glow-purple); }
+.neon-green { box-shadow: var(--glow-green); }
+
+.neon-text-cyan {
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(0,242,255,0.5);
+}
+
+/* ===========================
+   Neon Pulse Animation
+   =========================== */
+@keyframes neonPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--cyan); }
+  50%       { opacity: 0.6; box-shadow: 0 0 25px var(--cyan), 0 0 50px var(--cyan); }
+}
+
+.neon-pulse {
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+/* ===========================
+   Gradient Border Cards
+   =========================== */
+.gradient-border-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0,242,255,0.3), rgba(112,0,255,0.3));
+}
+
+.gradient-border-card-inner {
+  background: var(--bg-card);
+  border-radius: calc(var(--radius-lg) - 1px);
+  height: 100%;
+}
+
+/* ===========================
+   Ant Design Overrides
+   =========================== */
+.ant-menu-dark.ant-menu-inline {
+  background: transparent !important;
+}
+
+.ant-menu-dark .ant-menu-item {
+  border-radius: var(--radius-sm) !important;
+  margin: 4px 0 !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500;
+}
+
+.ant-menu-dark .ant-menu-item:hover {
+  background: rgba(255,255,255,0.06) !important;
+  color: var(--text-primary) !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background: linear-gradient(90deg, rgba(0,242,255,0.15), rgba(112,0,255,0.1)) !important;
+  border-left: 2px solid var(--cyan) !important;
+  color: var(--cyan) !important;
+  box-shadow: 0 0 16px rgba(0,242,255,0.1);
+}
+
+.ant-menu-dark .ant-menu-item-icon {
+  transition: transform 0.2s ease;
+}
+
+.ant-menu-dark .ant-menu-item:hover .ant-menu-item-icon {
+  transform: scale(1.15);
+}
+
+/* Table Dark Theme */
+.ant-table {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.ant-table-thead > tr > th {
+  background: rgba(255,255,255,0.03) !important;
+  color: var(--text-secondary) !important;
+  border-bottom: 1px solid var(--border) !important;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  transition: background 0.2s;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: rgba(255,255,255,0.03) !important;
+}
+
+.ant-table-row {
+  transition: all 0.2s;
+}
+
+/* Input overrides */
+.ant-input, .ant-input-password, .ant-input-affix-wrapper {
+  background: #1a1a24 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-sm) !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ant-input:focus, .ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 0 2px rgba(0,242,255,0.1) !important;
+}
+
+.ant-select-selector {
+  background: #1a1a24 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* Tag styling */
+.ant-tag { border-radius: 6px !important; font-weight: 500; font-size: 11px; }
+
+/* Modal dark */
+.ant-modal-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-xl) !important;
+}
+
+.ant-modal-header { background: transparent !important; border-bottom: 1px solid var(--border) !important; }
+.ant-modal-title { color: var(--text-primary) !important; font-weight: 700 !important; }
+.ant-modal-close { color: var(--text-secondary) !important; }
+
+/* Dropdown */
+.ant-dropdown-menu {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  backdrop-filter: blur(20px);
+}
+
+.ant-dropdown-menu-item {
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: rgba(255,255,255,0.05) !important;
+}
+
+/* Statistics */
+.ant-statistic-title { color: var(--text-secondary) !important; }
+.ant-statistic-content-value { color: var(--text-primary) !important; }
+
+/* Pagination */
+.ant-pagination-item { background: transparent !important; border-color: var(--border) !important; }
+.ant-pagination-item a { color: var(--text-secondary) !important; }
+.ant-pagination-item-active { border-color: var(--cyan) !important; }
+.ant-pagination-item-active a { color: var(--cyan) !important; }
+
+/* DatePicker */
+.ant-picker { background: #1a1a24 !important; border-color: rgba(255,255,255,0.1) !important; }
+.ant-picker-input input { color: var(--text-primary) !important; }
+
+/* ===========================
+   Stat Cards
+   =========================== */
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+  pointer-events: none;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,242,255,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), var(--glow-cyan);
+}
+
+.stat-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stat-card-value {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-card-label {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ===========================
+   Kanban Board
+   =========================== */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .kanban-board { grid-template-columns: 1fr; }
+}
+
+.kanban-column {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  min-height: 400px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kanban-column.drag-over {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 24px rgba(0,242,255,0.2), inset 0 0 20px rgba(0,242,255,0.03);
+  background: rgba(0,242,255,0.02);
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.kanban-card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 14px !important;
+  margin-bottom: 10px !important;
+  cursor: grab !important;
+  transition: all 0.2s ease !important;
+  user-select: none;
+}
+
+.kanban-card:hover {
+  border-color: rgba(0,242,255,0.2) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+.kanban-card:active { cursor: grabbing !important; }
+
+/* ===========================
+   Blockchain / Ledger Timeline
+   =========================== */
+.blockchain-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.blockchain-block {
+  display: flex;
+  gap: 14px;
+  position: relative;
+}
+
+.blockchain-block:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0,242,255,0.4), rgba(0,242,255,0.05));
+}
+
+.block-index-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(0,242,255,0.3);
+}
+
+.block-card {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s;
+}
+
+.blockchain-block.verified .block-card {
+  border-color: rgba(34,197,94,0.3);
+}
+
+.block-hash-field {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ===========================
+   Chat UI
+   =========================== */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 160px);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  line-height: 1.6;
+  font-size: 14px;
+  animation: bubbleIn 0.3s ease;
+}
+
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-bubble.user {
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.ai {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-input-area {
+  padding: 16px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* Typing dots */
+.typing-dots span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  margin: 0 2px;
+  animation: typingDot 1.2s ease-in-out infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%            { transform: scale(1); opacity: 1; }
+}
+
+/* ===========================
+   Progress Bar
+   =========================== */
+.progress-bar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 768px) {
+  .hide-mobile { display: none !important; }
+  .chat-bubble { max-width: 90%; }
+}
+
+/* ===========================
+   Shimmer Skeleton
+   =========================== */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1a1a24 25%, #22222e 50%, #1a1a24 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ===========================
+   Profile Avatar Ring
+   =========================== */
+.avatar-ring {
+  padding: 3px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ===========================
+   Priority Indicators
+   =========================== */
+.priority-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.priority-dot.HIGH   { background: var(--red);    box-shadow: 0 0 6px var(--red); }
+.priority-dot.MEDIUM { background: var(--yellow);  box-shadow: 0 0 6px var(--yellow); }
+.priority-dot.LOW    { background: var(--blue);    box-shadow: 0 0 6px var(--blue); }
